@@ -1,0 +1,27 @@
+# cli
+
+- [ ] yarn workspace with lerna
+- [ ] backend
+  - [ ] typeorm
+    - [ ] mysql
+    - [ ] postgress
+    - [ ] mongoose
+  - [ ] graphql -> typed-graphql
+  - [ ] restful -> koa
+  - [ ] plain
+- [ ] frontend + antd
+  - [ ] ts + react
+    - [ ] react-router
+    - [ ] redux
+    - [ ] mobx
+    - [ ] graphql apollo + unstated
+    - [ ] type
+      - [ ] pc
+      - [ ] h5
+      - [ ] react native
+    - [ ] style
+      - [ ] scss
+      - [ ] less
+      - [ ] stylus
+    - [ ] dynamic
+    - [ ] ssr

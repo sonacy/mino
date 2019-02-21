@@ -1,0 +1,14 @@
+{
+  "type": "minoType",
+  "name": "default",
+  "host": "localhost",
+  "port": minoPort,
+  "username": "root",
+  "password": "",
+  "database": "minoDB",
+  "synchronize": true,
+  "logging": true,
+  "entities": [
+    "src/entity/*.*"
+  ]
+}
