@@ -1,5 +1,6 @@
 import fs from 'fs-extra'
 import { IProjectJson } from 'src'
+import css from './css'
 import db from './db'
 import testJson from './test'
 
@@ -14,6 +15,8 @@ export const writeToDest = async (
 		'server-type': serverType,
 		'database-type': dbType,
 		'need-test': needTest,
+		'need-router': needRouter,
+		'style-processor': styleProcessor,
 	} = result
 
 	await fs.copy(srcDir, destDir, {
@@ -24,10 +27,25 @@ export const writeToDest = async (
 			if (src.includes('.lock')) {
 				return false
 			}
+			if (src.includes('.log')) {
+				return false
+			}
 
 			if (projectType === 'backend' && serverType === 'graphql' && !needTest) {
 				if (src.includes('test') || src.includes('jest')) {
 					return false
+				}
+			}
+
+			if (projectType === 'frontend') {
+				if (needRouter) {
+					if (src.includes('App1')) {
+						return false
+					}
+				} else {
+					if (src.includes('routes') || src.includes('App2')) {
+						return false
+					}
 				}
 			}
 			return true
@@ -70,6 +88,48 @@ export const writeToDest = async (
 				)
 			}
 		}
+	} else {
+		const stylePkg =
+			styleProcessor === 'stylus'
+				? `,
+		"stylus-loader": "^3.0.2",
+    "stylus": "^0.54.5"`
+				: styleProcessor === 'scss'
+				? `,
+		"node-sass": "^4.11.0",
+		"sass-loader": "^7.1.0"`
+				: ''
+
+		await changeContent(`${destDir}/package.json`, (content: string) => {
+			return content
+				.replace(
+					' - Router',
+					needRouter
+						? `,
+		"react-router-dom": "^4.3.1"`
+						: ''
+				)
+				.replace(
+					' - RouterDev',
+					needRouter
+						? `,
+		"@types/react-router-dom": "^4.3.1"`
+						: ''
+				)
+				.replace(' - StyleDev', stylePkg)
+		})
+		if (needRouter) {
+			await fs.rename(`${destDir}/src/App2.tsx`, `${destDir}/src/App.tsx`)
+		} else {
+			await fs.rename(`${destDir}/src/App1.tsx`, `${destDir}/src/App.tsx`)
+		}
+
+		await changeContent(
+			`${destDir}/build/webpack.base.conf.js`,
+			(content: string) => {
+				return content.replace('StyleProcessor,', css[styleProcessor!])
+			}
+		)
 	}
 }
 

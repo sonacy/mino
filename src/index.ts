@@ -73,15 +73,18 @@ async function generateProject(result: IProjectJson) {
 	await fs.ensureDir(targetDir)
 	let srcDir
 	if (result[ProjectType] === 'frontend') {
-		console.log(result)
+		srcDir = path.resolve(
+			__dirname,
+			`../templates/frontend/${result[FrontendType]}/${result[StoreType]}`
+		)
 	} else {
 		// backend
 		srcDir = path.resolve(
 			__dirname,
 			`../templates/backend/${result[ServerType]}`
 		)
-		await run(srcDir, targetDir, result)
 	}
+	await run(srcDir, targetDir, result)
 }
 
 const main = async () => {
