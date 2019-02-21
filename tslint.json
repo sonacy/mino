@@ -11,5 +11,11 @@
         "object-literal-sort-keys": false,
         "no-console": false
     },
-    "rulesDirectory": []
+    "rulesDirectory": [],
+    "linterOptions": {
+        "exclude": [
+            "example",
+            "template"
+        ]
+    }
 }

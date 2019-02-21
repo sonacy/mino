@@ -10,7 +10,9 @@
   "dependencies": {
     "antd": "^3.13.5",
     "react": "^16.8.2",
-    "react-dom": "^16.8.2" - Router
+    "react-dom": "^16.8.2",
+    "mobx": "^5.9.0",
+    "mobx-react": "^5.4.3" - Router
   },
   "devDependencies": {
     "@types/react": "^16.8.4",

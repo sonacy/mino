@@ -17,6 +17,7 @@ export const writeToDest = async (
 		'need-test': needTest,
 		'need-router': needRouter,
 		'style-processor': styleProcessor,
+		'store-type': storeType,
 	} = result
 
 	await fs.copy(srcDir, destDir, {
@@ -130,6 +131,13 @@ export const writeToDest = async (
 				return content.replace('StyleProcessor,', css[styleProcessor!])
 			}
 		)
+
+		if (storeType !== 'nothing') {
+			await fs.copy(
+				`${srcDir}/src/routes/main/index.tsx`,
+				`${destDir}/src/Main.tsx`
+			)
+		}
 	}
 }
 

@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "esnext",
+    "target": "es5",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "lib": ["es6", "dom"],
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {},
+    "rootDirs": []
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": ["node_modules", "public", "dist"],
+}
