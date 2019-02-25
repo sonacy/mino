@@ -8,8 +8,6 @@ export const run = async (
   destDir: string,
   result: IProjectJson
 ) => {
-  process.execPath = destDir
-
   const tasks = new Listr([
     {
       title: 'generate project',

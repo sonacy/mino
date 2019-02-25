@@ -4,7 +4,7 @@
 
 ## install
 
-- npm i -g mino
+- npm i -g mino-cli
 
 ## usage
 
