@@ -4,7 +4,7 @@ import {
   NeedRouter,
   StoreType,
   StyleProcessor,
-} from 'src/contants'
+} from '../contants'
 
 // 1. pc h5 react-native
 // 2. store

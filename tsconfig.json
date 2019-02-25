@@ -6,7 +6,7 @@
     "sourceMap": true,
     "outDir": "./dist",
     "moduleResolution": "node",
-    "declaration": false,
+    "declaration": true,
     "composite": false,
     "removeComments": true,
     "noImplicitAny": true,
@@ -20,9 +20,7 @@
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "baseUrl": ".",
-    "rootDir": "src"
+    "esModuleInterop": true
   },
   "exclude": ["node_modules"],
   "include": ["./src/**/*.tsx", "./src/**/*.ts"],

@@ -15,7 +15,8 @@
     "linterOptions": {
         "exclude": [
             "example",
-            "template"
+            "template",
+            "bin"
         ]
     }
 }
