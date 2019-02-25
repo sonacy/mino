@@ -1,9 +1,28 @@
 {
   "name": "mino-cli",
-  "version": "0.0.3",
+  "version": "0.0.6",
+  "description": "a ts boilerplate cli generator",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "MIT",
+  "keywords": [
+    "typescript",
+    "cli",
+    "graphql"
+  ],
+  "author": {
+    "name": "sonacy",
+    "email": "sonacy2538@163.com",
+    "url": "https://github.com/sonacy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sonacy/mino.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sonacy/mino/issues"
+  },
+  "homepage": "https://github.com/sonacy/mino",
   "bin": {
     "mino": "dist/bin/mino"
   },

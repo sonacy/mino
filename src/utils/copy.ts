@@ -22,29 +22,29 @@ export const writeToDest = async (
 
   await fs.copy(srcDir, destDir, {
     filter: src => {
-      if (src.lastIndexOf('node_modules')) {
+      if (src.endsWith('node_modules')) {
         return false
       }
-      if (src.lastIndexOf('.lock')) {
+      if (src.endsWith('.lock')) {
         return false
       }
-      if (src.lastIndexOf('.log')) {
+      if (src.endsWith('.log')) {
         return false
       }
 
       if (projectType === 'backend' && serverType === 'graphql' && !needTest) {
-        if (src.lastIndexOf('test') || src.lastIndexOf('jest')) {
+        if (src.endsWith('test') || src.endsWith('jest')) {
           return false
         }
       }
 
       if (projectType === 'frontend') {
         if (needRouter) {
-          if (src.lastIndexOf('App1.ts')) {
+          if (src.endsWith('App1.ts')) {
             return false
           }
         } else {
-          if (src.lastIndexOf('routes') || src.lastIndexOf('App2.ts')) {
+          if (src.endsWith('routes') || src.endsWith('App2.ts')) {
             return false
           }
         }
