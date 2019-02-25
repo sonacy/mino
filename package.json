@@ -4,9 +4,13 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "MIT",
+  "bin": {
+    "mino": "dist/bin/mino"
+  },
   "scripts": {
     "start": "ts-node src/index.ts",
-    "build": "rm -rf dist && tsc && cp -rf templates dist && cp -rf bin dist && chmod +x dist/bin/mino"
+    "build": "rm -rf dist && tsc && cp -rf templates dist && cp -rf bin dist && chmod +x dist/bin/mino",
+    "prepare": "npm run build"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",

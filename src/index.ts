@@ -69,7 +69,8 @@ export interface IProjectJson {
 
 async function generateProject(result: IProjectJson) {
   // 1. target project dir
-  const targetDir = path.resolve(__dirname, `../example/${result[ProjectName]}`)
+  const targetDir = `${process.cwd()}/${result[ProjectName]}`
+
   await fs.ensureDir(targetDir)
   let srcDir
   if (result[ProjectType] === 'frontend') {
@@ -89,10 +90,7 @@ async function generateProject(result: IProjectJson) {
 
 const main = async () => {
   const firstAns: IProjectJson = await inquirer.prompt(projectNameQuestion)
-  const targetPath = path.resolve(
-    __dirname,
-    `../example/${firstAns[ProjectName]}`
-  )
+  const targetPath = `${process.cwd()}/${firstAns[ProjectName]}`
   const isExist = await fs.pathExists(targetPath)
   if (isExist) {
     const existAns: IProjectJson = await inquirer.prompt(existQuestion)
@@ -118,7 +116,6 @@ const main = async () => {
       result = { ...secondAns, ...firstAns }
       break
   }
-  console.log(result)
 
   await generateProject(result)
   console.log(
