@@ -20,7 +20,7 @@ export const writeToDest = async (
 		'store-type': storeType,
 	} = result
 
-	await fs.copy(srcDir, destDir, {
+	await fs.copy(`${srcDir}/.`, destDir, {
 		filter: src => {
 			if (src.endsWith('node_modules')) {
 				return false
