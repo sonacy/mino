@@ -52,6 +52,11 @@ export const writeToDest = async (
 			return true
 		},
 	})
+
+	if (fs.existsSync(`${destDir}/.npmignore`)) {
+		fs.renameSync(`${destDir}/.npmignore`, `${destDir}/.gitignore`)
+	}
+
 	await changeContent(`${destDir}/package.json`, (content: string) => {
 		return content.replace('mino', projectName)
 	})
