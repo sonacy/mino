@@ -1,15 +1,10 @@
 {
   "name": "mino-cli",
-  "version": "0.0.21",
+  "version": "0.0.26",
   "description": "a ts boilerplate cli generator",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "MIT",
-  "files": [
-    "dist",
-    "templates",
-    ".gitignore"
-  ],
   "keywords": [
     "typescript",
     "cli",
