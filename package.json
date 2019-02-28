@@ -1,6 +1,6 @@
 {
   "name": "mino-cli",
-  "version": "0.0.8",
+  "version": "0.0.15",
   "description": "a ts boilerplate cli generator",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -28,7 +28,7 @@
   },
   "scripts": {
     "start": "ts-node src/index.ts",
-    "build": "rm -rf dist && tsc && cp -rf templates dist && cp -rf bin dist && chmod +x dist/bin/mino",
+    "build": "rm -rf dist && tsc && cp -rf bin dist && chmod +x dist/bin/mino",
     "prepare": "npm run build"
   },
   "devDependencies": {
