@@ -29,7 +29,7 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "build": "rm -rf dist && tsc && cp -rf bin dist && chmod +x dist/bin/mino",
-    "prepare": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",
