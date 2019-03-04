@@ -7,7 +7,8 @@ import testJson from './test'
 export const writeToDest = async (
   srcDir: string,
   destDir: string,
-  result: IProjectJson
+  result: IProjectJson,
+  spaceName: string = ''
 ) => {
   const {
     'project-name': projectName,
@@ -49,20 +50,33 @@ export const writeToDest = async (
           }
         }
       }
+      if (!!spaceName) {
+        // readme ignore
+        if (src.includes('readme.md') || src.includes('.minoignore')) {
+          return false
+        }
+      }
       return true
     },
   })
 
-  if (fs.existsSync(`${destDir}/.minoignore`)) {
-    fs.renameSync(`${destDir}/.minoignore`, `${destDir}/.gitignore`)
-  }
-
   await changeContent(`${destDir}/package.json`, (content: string) => {
-    return content.replace('mino', projectName)
+    if (!!spaceName) {
+      return content.replace('mino', `@${spaceName}/${projectName}`)
+    } else {
+      return content.replace('mino', projectName)
+    }
   })
-  await changeContent(`${destDir}/readme.md`, (content: string) => {
-    return content.replace('minoTitle', projectName)
-  })
+
+  if (!spaceName) {
+    if (fs.existsSync(`${destDir}/.minoignore`)) {
+      fs.renameSync(`${destDir}/.minoignore`, `${destDir}/.gitignore`)
+    }
+
+    await changeContent(`${destDir}/readme.md`, (content: string) => {
+      return content.replace('minoTitle', projectName)
+    })
+  }
 
   // change db type
   if (projectType === 'backend') {
@@ -94,7 +108,7 @@ export const writeToDest = async (
         )
       }
     }
-  } else {
+  } else if (projectType === 'frontend') {
     const stylePkg =
       styleProcessor === 'stylus'
         ? `,

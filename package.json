@@ -1,6 +1,6 @@
 {
   "name": "mino-cli",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "a ts boilerplate cli generator",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

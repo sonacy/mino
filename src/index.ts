@@ -17,6 +17,7 @@ import {
 } from './contants'
 import fePrompt from './frontend'
 import { run } from './utils/task'
+import worksapcePromt from './workspace'
 
 // 1. project name -> input
 // 2. front backend
@@ -50,13 +51,13 @@ const typedQuestions = [
     name: ProjectType,
     type: 'list',
     message: 'what kind of project do you want?',
-    choices: ['frontend', 'backend'],
+    choices: ['frontend', 'backend', 'workspace'],
   },
 ]
 
 export interface IProjectJson {
   [ProjectName]: string
-  [ProjectType]: 'frontend' | 'backend'
+  [ProjectType]: 'frontend' | 'backend' | 'workspace'
   [ServerType]?: 'graphql' | 'restful' | 'customize'
   [DBType]?: 'mysql' | 'postgresql' | 'mongoose'
   [NeedTest]?: boolean
@@ -68,24 +69,29 @@ export interface IProjectJson {
 }
 
 async function generateProject(result: IProjectJson) {
-  // 1. target project dir
-  const targetDir = `${process.cwd()}/${result[ProjectName]}`
+  const {
+    'project-name': projectName,
+    'project-type': projectType,
+    'frontend-type': frontendType,
+    'store-type': storeType,
+    'server-type': serverType,
+  } = result
+  const targetDir = `${process.cwd()}/${projectName}`
 
   await fs.ensureDir(targetDir)
   let srcDir
-  if (result[ProjectType] === 'frontend') {
+  if (projectType === 'frontend') {
     srcDir = path.resolve(
       __dirname,
-      `../templates/frontend/${result[FrontendType]}/${result[StoreType]}`
+      `../templates/frontend/${frontendType}/${storeType}`
     )
-  } else {
+  } else if (projectType === 'backend') {
     // backend
-    srcDir = path.resolve(
-      __dirname,
-      `../templates/backend/${result[ServerType]}`
-    )
+    srcDir = path.resolve(__dirname, `../templates/backend/${serverType}`)
+  } else {
+    srcDir = path.resolve(__dirname, `../templates/workspace`)
   }
-  await run(srcDir, targetDir, result)
+  await run(srcDir, targetDir, result, projectType === 'workspace')
 }
 
 const main = async () => {
@@ -112,19 +118,27 @@ const main = async () => {
       const beAns = await bePrompt()
       result = { ...beAns, ...secondAns, ...firstAns }
       break
+    case 'workspace':
+      const wsPath = `${targetPath}/packages`
+      await fs.ensureDir(wsPath)
+      await worksapcePromt(wsPath, firstAns[ProjectName])
+      result = { ...secondAns, ...firstAns }
+      break
     default:
       result = { ...secondAns, ...firstAns }
       break
   }
 
   await generateProject(result)
-  console.log(
-    chalk.yellowBright(
-      `😄 Success! cd ${
-        result[ProjectName]
-      } and yarn start to run the app, happy hacking!`
+  if (secondAns[ProjectType] !== 'workspace') {
+    console.log(
+      chalk.yellowBright(
+        `😄 Success! cd ${
+          result[ProjectName]
+        } and yarn start to run the app, happy hacking!`
+      )
     )
-  )
+  }
 }
 
 export default main
