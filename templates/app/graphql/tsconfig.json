@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "react-native",
+    "lib": ["es2015", "esnext.asynciterable"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "target": "es5",
+    "allowJs": false,
+    "noFallthroughCasesInSwitch": true,
+    "experimentalDecorators": true,
+    "isolatedModules": true,
+    "moduleResolution": "node",
+    "noEmit": true
+  },
+  "include": ["./src"],
+  "exclude": [
+    "node_modules"
+  ]
+}

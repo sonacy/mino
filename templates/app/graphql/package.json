@@ -1,0 +1,38 @@
+{
+  "name": "mino",
+  "version": "1.0.0",
+  "main": "./index.js",
+  "scripts": {
+    "prestart": "node ./scripts/enable-rn-hooks.js",
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "eject": "expo eject"
+  },
+  "dependencies": {
+    "apollo-cache-inmemory": "^1.5.1",
+    "apollo-client": "^2.5.1",
+    "apollo-link-http": "^1.5.14",
+    "apollo-upload-client": "^10.0.0",
+    "expo": "^32.0.6",
+    "graphql": "^14.2.1",
+    "graphql-tag": "^2.10.1",
+    "react": "^16.8.6",
+    "react-apollo": "^2.5.3",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-elements": "^1.1.0",
+    "react-navigation": "^3.6.0"
+  },
+  "devDependencies": {
+    "@types/apollo-upload-client": "^8.1.1",
+    "@types/expo": "^32.0.9",
+    "@types/react": "^16.8.10",
+    "@types/react-native": "^0.57.42",
+    "babel-preset-expo": "^5.1.1",
+    "tslint": "^5.14.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.0.0",
+    "typescript": "^3.4.1"
+  },
+  "private": true
+}
