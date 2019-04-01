@@ -1,6 +1,6 @@
 {
   "name": "mino-cli",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "description": "a ts boilerplate cli generator",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -28,12 +28,11 @@
   },
   "scripts": {
     "watch": "tsc --watch",
-    "start": "ts-node src/index.ts",
+    "start": "ts-node src/test/index.ts",
     "build": "rm -rf dist && tsc && cp -rf bin dist && chmod +x dist/bin/mino",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "@types/chalk": "^2.2.0",
     "@types/execa": "^0.9.0",
     "@types/fs-extra": "^5.0.5",
     "@types/inquirer": "^6.0.0",
@@ -51,6 +50,7 @@
     "execa": "^1.0.0",
     "fs-extra": "^7.0.1",
     "inquirer": "^6.2.2",
-    "listr": "^0.14.3"
+    "listr": "^0.14.3",
+    "npm-check-updates": "^3.1.3"
   }
 }
