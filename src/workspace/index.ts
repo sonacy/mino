@@ -3,8 +3,10 @@ import fs from 'fs-extra'
 import inquirer from 'inquirer'
 import path from 'path'
 import { IProjectJson } from '..'
+import appPrompt from '../app'
 import bePrompt from '../backend'
 import {
+	AppType,
 	ExistPath,
 	FrontendType,
 	ProjectName,
@@ -43,7 +45,7 @@ const typedQuestions = [
 		name: ProjectType,
 		type: 'list',
 		message: 'what kind of project do you want?',
-		choices: ['frontend', 'backend'],
+		choices: ['frontend', 'backend', 'app'],
 	},
 ]
 
@@ -67,12 +69,15 @@ async function generateProject(
 			__dirname,
 			`../../templates/frontend/${result[FrontendType]}`
 		)
-	} else {
+	} else if (result[ProjectType] === 'backend') {
 		// backend
 		srcDir = path.resolve(
 			__dirname,
 			`../../templates/backend/${result[ServerType]}`
 		)
+	} else {
+		// app
+		srcDir = path.resolve(__dirname, `../../templates/app/${result[AppType]}`)
 	}
 	await run(srcDir, targetDir, result, true, spaceName)
 }
@@ -100,6 +105,10 @@ const worksapcePromt = async (baseTargetPath: string, spaceName: string) => {
 		case 'backend':
 			const beAns = await bePrompt()
 			result = { ...beAns, ...secondAns, ...firstAns }
+			break
+		case 'app':
+			const appAns = await appPrompt()
+			result = { ...appAns, ...secondAns, ...firstAns }
 			break
 		default:
 			result = { ...secondAns, ...firstAns }

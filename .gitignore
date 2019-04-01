@@ -63,3 +63,5 @@ typings/
 example
 
 dist
+
+.DS_Store

@@ -3,26 +3,13 @@
   "private": true,
   "scripts": {
     "build:server": "lerna run build --scope={@name/common,@name/server}",
-    "build:web": "lerna run build --scope={@name/common,@name/controller,@name/web}"
+    "build:web": "lerna run build --scope={@name/common,@name/web}"
   },
   "workspaces": {
     "packages": [
       "packages/*"
     ],
-    "nohoist": [
-      "**/rimraf",
-      "**/rimraf/**",
-      "**/jest",
-      "**/jest/**",
-      "**/react-native",
-      "**/react-native/**",
-      "**/expo",
-      "**/expo/**",
-      "**/react-native-typescript-transformer",
-      "**/react-native-typescript-transformer/**",
-      "**/metro-bundler-config-yarn-workspaces",
-      "**/metro-bundler-config-yarn-workspaces/**"
-    ]
+    "nohoist": []
   },
   "devDependencies": {
     "lerna": "^3.13.1"

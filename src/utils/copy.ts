@@ -1,4 +1,5 @@
 import fs from 'fs-extra'
+import path from 'path'
 import { IProjectJson } from '..'
 import css from './css'
 import db from './db'
@@ -46,6 +47,15 @@ export const writeToDest = async (
 					}
 				} else {
 					if (src.endsWith('routes') || src.endsWith('App2.tsx')) {
+						return false
+					}
+				}
+			}
+
+			if (projectType === 'app') {
+				if (!spaceName) {
+					// none workspace, no need for rn-cli.config.js
+					if (src.endsWith('rn-cli.config.js')) {
 						return false
 					}
 				}
@@ -159,8 +169,51 @@ export const writeToDest = async (
 		}
 	} else if (projectType === 'app') {
 		await changeContent(`${destDir}/app.json`, content => {
-			return content.replace(/mino/g, projectName)
+			const ret = content.replace(/mino/g, projectName)
+			// app.json packagerOpts
+			const opts = !!spaceName
+				? `,
+    "packagerOpts": {
+      "config": "rn-cli.config.js"
+    }`
+				: ''
+			return ret.replace('packagerOpts', opts)
 		})
+
+		await changeContent(`${destDir}/scripts/enable-rn-hooks.js`, content => {
+			// scripts ../../
+			const relPath = !!spaceName ? '../../' : ''
+			return content.replace('RELATIVEPATH', relPath)
+		})
+
+		await changeContent(`${destDir}/package.json`, content => {
+			const pkg = !!spaceName
+				? `,
+		"@${spaceName}/expo-yarn-workspaces": "1.0.0"`
+				: ''
+			return content.replace('packager', pkg)
+		})
+
+		if (!!spaceName) {
+			// workspace
+			// 1. expo yarn workspaces
+			const expoSrcPath = path.resolve(
+				__dirname,
+				'../../templates/app/expo-yarn-workspaces'
+			)
+			const expoTargetPath = path.resolve(destDir, '../expo-yarn-workspaces')
+			await fs.ensureDir(expoTargetPath)
+
+			await fs.copy(`${expoSrcPath}/.`, expoTargetPath)
+			await changeContent(`${expoTargetPath}/package.json`, content => {
+				// "@mino/expo-yarn-workspaces": "1.0.0",
+				return content.replace(/mino/g, spaceName)
+			})
+			// 2. rn-cli.config.js
+			await changeContent(`${destDir}/rn-cli.config.js`, content => {
+				return content.replace(/mino/g, spaceName)
+			})
+		}
 	}
 }
 
