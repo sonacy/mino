@@ -95,11 +95,11 @@ async function generateProject(result: IProjectJson) {
 }
 
 const main = async () => {
-	const firstAns: IProjectJson = await inquirer.prompt(projectNameQuestion)
+	const firstAns: IProjectJson = await inquirer.prompt(projectNameQuestion as any)
 	const targetPath = `${process.cwd()}/${firstAns[ProjectName]}`
 	const isExist = await fs.pathExists(targetPath)
 	if (isExist) {
-		const existAns: IProjectJson = await inquirer.prompt(existQuestion)
+		const existAns: IProjectJson = await inquirer.prompt(existQuestion as any)
 		if (existAns[ExistPath] === 'empty') {
 			await fs.remove(targetPath)
 		} else if (existAns[ExistPath] === 'quit') {
@@ -108,7 +108,7 @@ const main = async () => {
 	}
 
 	let result
-	const secondAns: IProjectJson = await inquirer.prompt(typedQuestions)
+	const secondAns: IProjectJson = await inquirer.prompt(typedQuestions as any)
 	switch (secondAns[ProjectType]) {
 		case 'frontend':
 			const feAns = await fePrompt()
