@@ -3,8 +3,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 
-import { IStore } from '../store'
-import { Add, Minus } from '../store/appState'
+import { IStore } from '../../store'
+import { Add, Minus } from '../../store/appState'
 
 const Main = ({
   name,

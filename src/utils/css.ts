@@ -1,9 +1,8 @@
 export default {
-	scss: `{
+  scss: `{
     test: /\.less$/,
     include: [
-      resolve('src'),
-      resolve('node_modules/antd'),
+      resolve(__dirname,'../node_modules/antd'),
     ],
     loaders: [
       isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
@@ -49,10 +48,10 @@ export default {
     ],
     exclude: /node_modules/,
   },`,
-	less: `{
+  less: `{
     test: /\.less$/,
     include: [
-      resolve('node_modules/antd'),
+      resolve(__dirname,'../node_modules/antd'),
     ],
     loaders: [
       isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
@@ -70,7 +69,7 @@ export default {
   {
     test: /\.less$/,
     include: [
-      resolve('src'),
+      resolve(__dirname, 'src'),
     ],
     loaders: [
       isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
@@ -101,11 +100,10 @@ export default {
     ],
     exclude: /node_modules/,
   },`,
-	stylus: `{
+  stylus: `{
     test: /\.less$/,
     include: [
-      resolve('src'),
-      resolve('node_modules/antd'),
+      resolve(__dirname,'../node_modules/antd'),
     ],
     loaders: [
       isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
@@ -151,11 +149,10 @@ export default {
     ],
     exclude: /node_modules/,
   },`,
-	nothing: `{
+  nothing: `{
     test: /\.less$/,
     include: [
-      resolve('src'),
-      resolve('node_modules/antd'),
+      resolve(__dirname,'../node_modules/antd'),
     ],
     loaders: [
       isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
